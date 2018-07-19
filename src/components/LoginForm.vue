@@ -1,12 +1,17 @@
+<!-- HTML -->
+
 <template>
-    <h1>Helo this is from login</h1>
+
 </template>
+
+<!-- JAVASCRIPT -->
 <script>
 export default {
     
 }
 </script>
 
+<!-- CSS -->
 <style scoped>
 
 </style>

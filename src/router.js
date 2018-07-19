@@ -5,6 +5,7 @@ import About from './views/About.vue'
 import Login from './views/Login.vue'
 import Profile from './views/Profile.vue'
 import Upload from './views/Upload.vue'
+import Register from './views/Register.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path:'/upload',
       name: 'upload',
       component: Upload
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
     }
   ]
 })
