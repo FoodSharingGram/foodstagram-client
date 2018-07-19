@@ -26,17 +26,19 @@ export default {
             city: ''
         }
     },
-    methods : {
+    methods: {
         postRegister () {
-            let obj = { 
-                username: this.username,
-                email: this.email,
-                password: this.password,
-                city: this.city
-                }
-
-            console.log(obj);
-            axios.post('http://localhost:3000/users/register', obj)
+            let username = this.username;
+            let email = this.email;
+            let password = this.password;
+            let city = this.city;
+                
+            axios.post('http://localhost:3000/users/register', { 
+                username: username,
+                email: email,
+                password: password,
+                city: city
+                })
             .then(function (response) {
                 console.log(response);
             })
