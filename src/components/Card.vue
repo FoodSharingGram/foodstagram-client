@@ -1,17 +1,18 @@
 <template>
-    <div class="Instagram-card">
+<div>
+    <div class="Instagram-card" v-for="(food, index) in foods" :key="index" >
     <div class="Instagram-card-header">
       <img src="https://vignette.wikia.nocookie.net/3__/images/2/20/Kirito.png/revision/latest?cb=20160218144042&path-prefix=300-heroes" class="Instagram-card-user-image">
       <a class="Instagram-card-user-name" href="https://www.instagram.com/rogersbase/"> rogersbase </a>
-      <div class="Instagram-card-time"> 07 July</div>
+      <div class="Instagram-card-time"> 07 July </div>
     </div>
 
     <div class="Instagram-card">
-      <img src= "https://d.zmtcdn.com/data/pictures/chains/8/16774318/a54deb9e4dbb79dd7c8091b30c642077_featured_v2.png" height=100% width="100%"/>
+      <img :src= "food.url"/>
     </div>
 
     <div class="Instagram-card-content">
-      <v-btn flat>PIZZA </v-btn>
+      <v-btn flat> {{food.title}}  </v-btn>
       <p><a class="Instagram-card-content-user" href="#">rogersbase</a>
      I GOT TO PLAY NINTENDO SWITCH ON #NINTENDO MINUTE! 😱 So happy that I can finally talk about this! @kitellis and @breath0air told me that we were going to be playing <a class="hashtag" href="https://www.instagram.com/explore/tags/poochy/">#Poochy</a> and <a class="hashtag" href="https://www.instagram.com/explore/tags/yoshi/">#Yoshi</a> but ended up surprising me with a private <a class="hashtag" href="https://www.instagram.com/explore/tags/nintendoswitch/">#NintendoSwitch</a> play session. I had the opportunity to play The Legend of <a class="hashtag" href="https://www.instagram.com/explore/tags/zelda/">#Zelda</a> <a class="hashtag" href="https://www.instagram.com/explore/tags/breathofthewild/">#BreathOfTheWild</a> and <a class="hashtag" href="https://www.instagram.com/explore/tags/12switch/">#12Switch</a>, both of which were a ton of fun! Massive thank you to the team at @Nintendo for having me on! I had an absolute blast! 🎉</p>
       <p class="comments">12 Comments</p>
@@ -23,11 +24,20 @@
       <button type="button" class="btn btn-primary btn-sm">Post</button>
     </div>
     </div>
+  </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
-    
+    created () {
+      this.$store.dispatch('getFoods')
+    },
+    computed: {
+      ...mapState([
+        'foods'
+      ])
+    }
 }
 </script>
 
@@ -36,7 +46,9 @@ export default {
 a{
   text-decoration: none;
 }
-
+img {
+  max-width: 100%;
+}
 .Instagram-card{
 	background: #ffffff;
 	border: 1px solid #f2f2f2;
