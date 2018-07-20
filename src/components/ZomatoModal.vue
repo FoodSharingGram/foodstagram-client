@@ -1,4 +1,6 @@
 <template>
+<v-dialog v-model="dialog" max-width="30.4%"  >
+  <main style="background-color:#ff5252	">
 <div
     id="e3"
     style="max-width: 600px; margin: auto;"
@@ -10,48 +12,72 @@
       >
         <v-layout row wrap>
           <v-flex xs12>
-            <v-card color="white" class="white--black">
+            <v-card color="white" class="white--black" v-for="(resto, index) in restaurants" :key="index" >
               <v-container fluid grid-list-lg>
                 <v-layout row>
                   <v-flex xs5>
                     <v-card-media
-                      src="https://d.zmtcdn.com/data/pictures/chains/8/16774318/a54deb9e4dbb79dd7c8091b30c642077_featured_v2.png"
+                      :src="resto.restaurant.featured_image"
                       height="125px"
                       contain
                     ></v-card-media>
                   </v-flex>
                   <v-flex xs7>
                     <div>
-                      <div class="headline">Nasi Padang & Ayam Bakar Kecap Libe La <span class="w3-tag" > 4.3 </span> </div>
-                      <div> <strong>  Lenggang Jakarta, Gambir </strong></div>
-                      <p>Lenggang Jakarta, Blok A-15, Jl. Medan Merdeka Selatan, Gambir, Jakarta</p>
+                      <div class="headline"> {{resto.restaurant.name}} <span class="w3-tag" > {{resto.restaurant.user_rating.aggregate_rating}} </span> </div>
+                      <div> <strong>  {{resto.restaurant.location.locality}}  </strong></div>
+                      <p> {{resto.restaurant.location.address}} </p>
                     </div>
                   </v-flex>
                 </v-layout>
               </v-container>
-              <v-card color="grey" >
+              <v-card color="red lighten-2" >
               <v-card-text>
-                  CUISINE Padang <br>
-                  COST FOR TWO 50000 IDR <br>
+                  CUISINE {{resto.restaurant.cuisines}} <br>
+                  COST FOR TWO {{resto.restaurant.average_cost_for_two}} {{resto.restaurant.currency}} <br>
                   HOURS <br>
               </v-card-text>
+              <v-card-action>
+                <v-btn> get review </v-btn>
+              </v-card-action>
               </v-card>
             </v-card>
           </v-flex>
         </v-layout>
       </v-container>
+      <v-btn @click="check"> check </v-btn>
     </v-card>
   </div>
+  </main>
+</v-dialog>
 </template>
 <script>
+import {mapState} from 'vuex'
 export default {
-    
+    computed: {
+      dialog: {
+        get () {
+          return this.$store.state.dialog
+        },
+        set () {
+          this.$store.commit('setDialog', false)
+        }
+      },
+      ...mapState([
+        'restaurants'
+      ])
+    },
+    methods: {
+      check () {
+        console.log(this.restaurants)
+      }
+    }
 }
 </script>
 
 
 <style scoped>
 .w3-tag {
-    background-color:#000;color:#fff;display:inline-block;padding-left:8px;padding-right:8px;text-align:center
+    background-color:#3F7E00;color:#fff;display:inline-block;padding-left:8px;padding-right:8px;text-align:center
 }
 </style>

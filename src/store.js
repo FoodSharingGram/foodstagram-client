@@ -5,11 +5,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    foods: []
+    foods: [],
+    dialog: false,
+    restaurants: []
   },
   mutations: {
     setFoods (state, payload) {
       state.foods = payload
+    },
+    setDialog (state, payload) {
+      state.dialog = payload
+    },
+    setRestaurants (state, payload) {
+      state.restaurants = payload
     }
   },
   actions: {
@@ -19,6 +27,24 @@ export default new Vuex.Store({
         console.log('axios get adata')
         // console.log(data)
         context.commit('setFoods',data)
+      })
+    },
+    getRestaurants (context,query) {
+      console.log('get Restaurant zomato',query)
+      context.commit('setDialog', true)
+      let id = '5b509cb99da4443f7475aefd'
+      axios.get(`http://localhost:3000/api/search/${id}`,{
+        headers: {
+          title: query
+        }
+      })
+      .then(({data}) => {
+        console.log(data.result.restaurants, 'ini data')
+        let result = data.result.restaurants
+        context.commit('setRestaurants', result)
+      })
+      .catch(err=> {
+        console.log(err.message)
       })
     }
   }
