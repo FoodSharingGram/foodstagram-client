@@ -4,7 +4,7 @@
     <div class="Instagram-card-header">
       <img src="https://vignette.wikia.nocookie.net/3__/images/2/20/Kirito.png/revision/latest?cb=20160218144042&path-prefix=300-heroes" class="Instagram-card-user-image">
       <a class="Instagram-card-user-name" href="#"> rogersbase </a>
-      <div class="Instagram-card-time"> 07 July </div>
+      <div class="Instagram-card-time"> {{food.date}} </div>
     </div>
 
     <div class="Instagram-card">
@@ -36,7 +36,7 @@ export default {
     computed: {
       ...mapState([
         'foods'
-      ])
+      ]),
     },
     methods: {
       ...mapActions([

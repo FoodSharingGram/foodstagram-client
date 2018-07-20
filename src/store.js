@@ -25,7 +25,7 @@ export default new Vuex.Store({
       axios.get('http://localhost:3000/foods/image')
       .then(({data})=> {
         console.log('axios get adata')
-        // console.log(data)
+        console.log(data)
         context.commit('setFoods',data)
       })
     },
@@ -41,11 +41,18 @@ export default new Vuex.Store({
       .then(({data}) => {
         console.log(data.result.restaurants, 'ini data')
         let result = data.result.restaurants
+        // console.log(resu)
         context.commit('setRestaurants', result)
       })
       .catch(err=> {
         console.log(err.message)
       })
+    },
+    deletePhoto (context, index) {
+      console.log('delete photo id')
+    },
+    updatePhoto (context, index) {
+      console.log('update id')
     }
   }
 })

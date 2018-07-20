@@ -8,10 +8,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <router-link to="/" class="nav-link" > Home <span class="sr-only" >(current)</span> </router-link>
+        <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Profile</a>
+        <router-link class="nav-link" to="profile"> Profile </router-link>
       </li>
       <li>
           <a class="nav-link" href=""> Don't have an account yet?</a>
