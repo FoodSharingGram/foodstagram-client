@@ -38,7 +38,7 @@
                   HOURS <br>
               </v-card-text>
               <v-card-action>
-                <v-btn> get review </v-btn>
+                <v-btn @click="openReview(resto.restaurant.id)" > get review </v-btn>
               </v-card-action>
               </v-card>
             </v-card>
@@ -52,7 +52,7 @@
 </v-dialog>
 </template>
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 export default {
     computed: {
       dialog: {
@@ -70,7 +70,10 @@ export default {
     methods: {
       check () {
         console.log(this.restaurants)
-      }
+      },
+      ...mapActions([
+        'openReview'
+      ])
     }
 }
 </script>

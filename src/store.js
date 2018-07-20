@@ -7,7 +7,9 @@ export default new Vuex.Store({
   state: {
     foods: [],
     dialog: false,
-    restaurants: []
+    restaurants: [],
+    review: false,
+    reviewData: []
   },
   mutations: {
     setFoods (state, payload) {
@@ -18,6 +20,12 @@ export default new Vuex.Store({
     },
     setRestaurants (state, payload) {
       state.restaurants = payload
+    },
+    setReview (state, payload) {
+      state.review = payload
+    },
+    setReviewData(state, payload) {
+      state.reviewData = payload
     }
   },
   actions: {
@@ -31,11 +39,12 @@ export default new Vuex.Store({
     },
     getRestaurants (context,query) {
       console.log('get Restaurant zomato',query)
+      let token = localStorage.getItem('token')
       context.commit('setDialog', true)
-      let id = '5b509cb99da4443f7475aefd'
-      axios.get(`http://localhost:3000/api/search/${id}`,{
+      axios.get(`http://localhost:3000/api/search`,{
         headers: {
-          title: query
+          title: query,
+          token: token
         }
       })
       .then(({data}) => {
@@ -46,6 +55,21 @@ export default new Vuex.Store({
       })
       .catch(err=> {
         console.log(err.message)
+      })
+    },
+    openReview (context,resId) {
+      console.log('openreview',resId)
+      let token = localStorage.getItem('token')
+      context.commit('setReview',true)
+      axios.get(`http://localhost:3000/api/reviews`, {
+        headers: {
+          id: resId,
+          token : token
+        }
+      })
+      .then(({data})=>{
+        console.log(data.user_reviews, ' ini data')
+        context.commit('setReviewData', data.user_reviews)
       })
     },
     deletePhoto (context, index) {
