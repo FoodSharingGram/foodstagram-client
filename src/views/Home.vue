@@ -21,7 +21,7 @@ export default {
     Navbar,
     Card,
     CommentSection,
-    ZomatoModal
+    ZomatoModal,
   }
 }
 </script>
