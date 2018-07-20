@@ -15,7 +15,11 @@
 </div>
 </template>
 <script>
+// INCOMPLETE ROUTING
 import axios from 'axios';
+import { log } from 'util';
+import swal from 'sweetalert';
+
 export default {
 
     data () {
@@ -23,7 +27,7 @@ export default {
             username: '',
             email: '',
             password: '',
-            city: ''
+            city: '',
         }
     },
     methods: {
@@ -32,7 +36,7 @@ export default {
             let email = this.email;
             let password = this.password;
             let city = this.city;
-            console.log(username, email, password, city)
+            // console.log(username, email, password, city)
 
             axios.post('http://localhost:3000/users/register', { 
                 username: username,
@@ -40,11 +44,15 @@ export default {
                 password: password,
                 city: city
                 })
-            .then(function (response) {
-                console.log(response);
+            //use arrow function
+            .then((response) => {
+                console.log(response)
+                console.log("Redirecting to Login")
+                this.$router.push('/login')
                 
             })
-            .catch(function (err) {
+            .catch((err) => {
+                swal("Error", "Missing or Incorrect fields!", "warning")
                 console.log(err);
             });
         }
