@@ -3,8 +3,8 @@
     <div class="Instagram-card" v-for="(food, index) in foods" :key="index" >
     <div class="Instagram-card-header">
       <img src="https://vignette.wikia.nocookie.net/3__/images/2/20/Kirito.png/revision/latest?cb=20160218144042&path-prefix=300-heroes" class="Instagram-card-user-image">
-      <a class="Instagram-card-user-name" href="https://www.instagram.com/rogersbase/"> rogersbase </a>
-      <div class="Instagram-card-time"> 07 July </div>
+      <a class="Instagram-card-user-name" href="#"> rogersbase </a>
+      <div class="Instagram-card-time"> {{food.date}} </div>
     </div>
 
     <div class="Instagram-card">
@@ -12,7 +12,7 @@
     </div>
 
     <div class="Instagram-card-content">
-      <v-btn flat> {{food.title}}  </v-btn>
+      <v-btn @click="getRestaurants(food.title)" flat> {{food.title}}  </v-btn>
       <p><a class="Instagram-card-content-user" href="#">rogersbase</a>
      I GOT TO PLAY NINTENDO SWITCH ON #NINTENDO MINUTE! 😱 So happy that I can finally talk about this! @kitellis and @breath0air told me that we were going to be playing <a class="hashtag" href="https://www.instagram.com/explore/tags/poochy/">#Poochy</a> and <a class="hashtag" href="https://www.instagram.com/explore/tags/yoshi/">#Yoshi</a> but ended up surprising me with a private <a class="hashtag" href="https://www.instagram.com/explore/tags/nintendoswitch/">#NintendoSwitch</a> play session. I had the opportunity to play The Legend of <a class="hashtag" href="https://www.instagram.com/explore/tags/zelda/">#Zelda</a> <a class="hashtag" href="https://www.instagram.com/explore/tags/breathofthewild/">#BreathOfTheWild</a> and <a class="hashtag" href="https://www.instagram.com/explore/tags/12switch/">#12Switch</a>, both of which were a ton of fun! Massive thank you to the team at @Nintendo for having me on! I had an absolute blast! 🎉</p>
       <p class="comments">12 Comments</p>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 export default {
     created () {
       this.$store.dispatch('getFoods')
@@ -36,6 +36,11 @@ export default {
     computed: {
       ...mapState([
         'foods'
+      ]),
+    },
+    methods: {
+      ...mapActions([
+        'getRestaurants'
       ])
     }
 }
