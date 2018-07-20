@@ -3,6 +3,7 @@
     <Navbar></Navbar>
     <Card></Card>
     <ZomatoModal/>
+    <ReviewModal></ReviewModal>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import Navbar from '@/components/Navbar.vue'
 import Card from '@/components/Card.vue'
 import CommentSection from '@/components/CommentSection.vue'
 import ZomatoModal from '@/components/ZomatoModal.vue'
+import ReviewModal from '@/components/ReviewModal.vue'
 
 export default {
   name: 'home',
@@ -22,6 +24,12 @@ export default {
     Card,
     CommentSection,
     ZomatoModal,
-  }
+    ReviewModal
+  },
+  created () {
+    if (!localStorage.hasOwnProperty('token')) {
+      this.$router.push('/login')
+    }
+  } 
 }
 </script>

@@ -12,18 +12,21 @@
         <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
       </li>
       <li class="nav-item">
-        <router-link class="nav-link" to="profile"> Profile </router-link>
+        <router-link class="nav-link" :to="`profile/${userId}`"> Profile </router-link>
       </li>
-      <li>
-          <a class="nav-link" href=""> Don't have an account yet?</a>
+      <li v-if="loginStatus==false">
+          <!-- <a class="nav-link" href=""> Don't have an account yet?</a> -->
+          <router-link class="nav-link" to="register"> Don't have an account yet? </router-link>
       </li>
-      <li>
-          <button type="button" class="btn btn-outline-secondary">Login</button>
+      <li v-if="loginStatus==false">
+         <router-link to="login" class="nav-link"> Login </router-link>
+      </li>
+      <li v-if="loginStatus==true">
+         <router-link to="upload" class="nav-link"> Upload </router-link>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <button v-if="loginStatus==true" class="btn btn-outline-success my-2 my-sm-0" type="submit" @click="logout" >Logout</button>
     </form>
   </div>
 </nav>
@@ -31,8 +34,16 @@
 
 <script>
 export default {
+    data () {
+      return {
+        iduser : localStorage.getItem('userId'),
+        loginStatus: false
+      }
+    },
     created () {
-        
+        if (localStorage.hasOwnProperty('token')) {
+          this.loginStatus = true
+        }
     },
     methods: {
         topNav () {
@@ -42,6 +53,9 @@ export default {
             } else {
                 x.className = "topnav";
             }
+        },
+        logout () {
+          localStorage.clear()
         }
     }
 }

@@ -36,7 +36,7 @@ export default {
             let email = this.email;
             let password = this.password;
             let city = this.city;
-            // console.log(username, email, password, city)
+            console.log(username, email, password, city)
 
             axios.post('http://localhost:3000/users/register', { 
                 username: username,

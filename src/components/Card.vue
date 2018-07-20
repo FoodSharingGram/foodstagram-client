@@ -3,7 +3,7 @@
     <div class="Instagram-card" v-for="(food, index) in foods" :key="index" >
     <div class="Instagram-card-header">
       <img src="https://vignette.wikia.nocookie.net/3__/images/2/20/Kirito.png/revision/latest?cb=20160218144042&path-prefix=300-heroes" class="Instagram-card-user-image">
-      <a class="Instagram-card-user-name" href="#"> rogersbase </a>
+      <a class="Instagram-card-user-name" href="#"> {{food.user.username}} </a>
       <div class="Instagram-card-time"> {{food.date}} </div>
     </div>
 
@@ -13,9 +13,9 @@
 
     <div class="Instagram-card-content">
       <v-btn @click="getRestaurants(food.title)" flat> {{food.title}}  </v-btn>
-      <p><a class="Instagram-card-content-user" href="#">rogersbase</a>
-     I GOT TO PLAY NINTENDO SWITCH ON #NINTENDO MINUTE! 😱 So happy that I can finally talk about this! @kitellis and @breath0air told me that we were going to be playing <a class="hashtag" href="https://www.instagram.com/explore/tags/poochy/">#Poochy</a> and <a class="hashtag" href="https://www.instagram.com/explore/tags/yoshi/">#Yoshi</a> but ended up surprising me with a private <a class="hashtag" href="https://www.instagram.com/explore/tags/nintendoswitch/">#NintendoSwitch</a> play session. I had the opportunity to play The Legend of <a class="hashtag" href="https://www.instagram.com/explore/tags/zelda/">#Zelda</a> <a class="hashtag" href="https://www.instagram.com/explore/tags/breathofthewild/">#BreathOfTheWild</a> and <a class="hashtag" href="https://www.instagram.com/explore/tags/12switch/">#12Switch</a>, both of which were a ton of fun! Massive thank you to the team at @Nintendo for having me on! I had an absolute blast! 🎉</p>
-      <p class="comments">12 Comments</p>
+      <p><a class="Instagram-card-content-user" href="#"> {{food.user.username}} </a>
+      {{food.description}} </p>
+      <v-btn @click="download(food.url)">download</v-btn>
     <hr>
     </div>  
 
@@ -29,6 +29,8 @@
 
 <script>
 import {mapState, mapActions} from 'vuex'
+import FileSaver from 'file-saver'
+import axios from 'axios'
 export default {
     created () {
       this.$store.dispatch('getFoods')
@@ -41,8 +43,24 @@ export default {
     methods: {
       ...mapActions([
         'getRestaurants'
-      ])
-    }
+      ]),
+      download (image) {
+        let sendUrl = image;
+
+        axios({
+          url: 'http://localhost:3000/foods/image/download',
+          method: 'GET',
+          query:{ q: sendUrl },
+          responseType: 'blob', // important
+        }).then((response) => {
+          console.log(response.data)
+
+          let blob = new Blob([response.data])
+          FileSaver.saveAs(blob, 'file.jpg')
+
+      });
+      }
+    },
 }
 </script>
 
