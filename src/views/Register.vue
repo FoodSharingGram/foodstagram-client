@@ -1,7 +1,6 @@
 <template>
 <div>
     <RegisterForm> </RegisterForm>
-    <LoginForm> </LoginForm>
 </div>
 </template>
 
